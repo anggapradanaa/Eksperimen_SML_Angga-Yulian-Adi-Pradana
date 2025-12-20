@@ -208,9 +208,9 @@ def main():
     print("=" * 60)
     
     # Paths
-    input_path = r"D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Eksperimen_SML_Angga-Yulian-Adi-Pradana\namadataset_raw\diabetes.csv"
-    output_dir = './namadataset_preprocessing/'
-    modelling_output_dir = r'D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Membangun_model\namadataset_preprocessing'
+    input_path = r"D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Eksperimen_SML_Angga-Yulian-Adi-Pradana\diabetes_raw\diabetes.csv"
+    output_dir = './diabetes_preprocessing/'
+    modelling_output_dir = r'D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Membangun_model\diabetes_preprocessing'
     
     # Pipeline
     df = load_data(input_path)
