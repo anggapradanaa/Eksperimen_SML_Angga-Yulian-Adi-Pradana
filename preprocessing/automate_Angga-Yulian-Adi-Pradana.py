@@ -191,9 +191,9 @@ def copy_to_modelling_folder(source_dir, dest_dir):
         
         if os.path.exists(source_file):
             shutil.copy2(source_file, dest_file)
-            print(f"  {filename} copied successfully")
+            print(f"  ✓ {filename} copied successfully")
         else:
-            print(f"  {filename} not found in source")
+            print(f"  ✗ {filename} not found in source")
     
     print(f"\n✓ All files copied to: {dest_dir}")
 
@@ -203,14 +203,24 @@ def main():
     print("\n" + "=" * 60)
     print("AUTOMATED PREPROCESSING - DIABETES DATASET")
     print("=" * 60)
-    print("Author: Nama-siswa")
+    print("Author: Angga Yulian Adi Pradana")
     print("Class: Membangun Sistem Machine Learning")
     print("=" * 60)
+
+    # Deteksi apakah script dijalankan di GitHub Actions atau lokal
+    is_github_actions = os.getenv('GITHUB_ACTIONS') == 'true'
     
-    # Paths
-    input_path = r"D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Eksperimen_SML_Angga-Yulian-Adi-Pradana\diabetes_raw\diabetes.csv"
-    output_dir = './diabetes_preprocessing/'
-    modelling_output_dir = r'D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Membangun_model\diabetes_preprocessing'
+    if is_github_actions:
+        # Path untuk GitHub Actions
+        input_path = '../diabetes_raw/diabetes.csv'
+        output_dir = './diabetes_preprocessing/'
+        print("\n🔧 Running in GitHub Actions mode")
+    else:
+        # Path untuk lokal
+        input_path = r"D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Eksperimen_SML_Angga-Yulian-Adi-Pradana\diabetes_raw\diabetes.csv"
+        output_dir = './diabetes_preprocessing/'
+        modelling_output_dir = r'D:\Perkuliahan\Asah led by Dicoding\Submission Proyek\SMSML_Angga\Membangun_model\diabetes_preprocessing'
+        print("\n🔧 Running in Local mode")
     
     # Pipeline
     df = load_data(input_path)
@@ -225,20 +235,22 @@ def main():
     # Save data
     save_data(X_train_resampled, X_test, y_train_resampled, y_test, df_processed, output_dir)
     
-    # COPY FILES KE FOLDER MEMBANGUN_MODEL
-    copy_to_modelling_folder(output_dir, modelling_output_dir)
+    # COPY FILES KE FOLDER MEMBANGUN_MODEL (hanya di lokal)
+    if not is_github_actions:
+        copy_to_modelling_folder(output_dir, modelling_output_dir)
     
     print("\n" + "=" * 60)
     print("PREPROCESSING COMPLETED SUCCESSFULLY!")
     print("=" * 60)
     print("\nSUMMARY:")
-    print("Missing values handled with median")
-    print("Duplicates removed")
-    print("All features scaled (StandardScaler)")
-    print("Train-test split (80-20)")
-    print("Class imbalance handled with SMOTE")
-    print("Data saved to preprocessing folder")
-    print("Data copied to Membangun_model folder")
+    print("✓ Missing values handled with median")
+    print("✓ Duplicates removed")
+    print("✓ All features scaled (StandardScaler)")
+    print("✓ Train-test split (80-20)")
+    print("✓ Class imbalance handled with SMOTE")
+    print("✓ Data saved to preprocessing folder")
+    if not is_github_actions:
+        print("✓ Data copied to Membangun_model folder")
     print("\n" + "=" * 60)
 
 
