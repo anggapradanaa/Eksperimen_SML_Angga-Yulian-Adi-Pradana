@@ -17,6 +17,8 @@ on:
 jobs:
   preprocessing:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Memberikan permission untuk write/push
     
     steps:
       - name: Checkout Repository
